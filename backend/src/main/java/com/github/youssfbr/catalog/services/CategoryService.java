@@ -1,6 +1,6 @@
 package com.github.youssfbr.catalog.services;
 
-import com.github.youssfbr.catalog.entities.Category;
+import com.github.youssfbr.catalog.dto.CategoryDTO;
 import com.github.youssfbr.catalog.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +17,11 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public List<Category> findAll() {
-        return repository.findAll();
+    public List<CategoryDTO> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(CategoryDTO::new)
+                .toList();
     }
 
 }
